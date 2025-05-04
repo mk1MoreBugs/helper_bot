@@ -18,15 +18,28 @@ from utils.parse_city_arg import parse_city_arg
 async def start_command(message: Message):
     await message.answer(f"Привет, {message.from_user.first_name}! Я твой Telegram-бот! 🚀")
 
+
 @dp.message(Command("weather", re.compile(r"^weather [а-яА-Яa-zA-Z]+\D+-*")))
-async def help_command(message: Message):
+async def weather_command(message: Message):
     city_in_message: str = parse_city_arg(message)
     await message.answer("city:" + city_in_message)
+
+
+@dp.message(Command("quote"))
+async def quote_command(message: Message):
+    quote_message = "Тестовая цитата"
+    await message.answer(quote_message)
+
 
 @dp.message(Command("help"))
 async def help_command(message: Message):
     help_message = await generate_bot_help_message()
     await message.answer(help_message)
+
+
+@dp.message(Command("subscribe"))
+async def subscribe_command(message: Message):
+    await message.answer("Еще не реализовано")
 
 
 @dp.message(Command('inline_menu'))
@@ -51,11 +64,11 @@ async def menu_handler(message: Message):
 @dp.callback_query()
 async def process_callback(callback_query: CallbackQuery):
     if callback_query.data == "weather_button":
-        await dp.answer_callback_query(callback_query.id, text="Вы нажали кнопку 1")
+        await bot.answer_callback_query(callback_query.id, text="Ещё не реализовано")
     elif callback_query.data == "quote_button":
-        await bot.answer_callback_query(callback_query.id, text="Вы нажали кнопку 2")
+        await quote_command(message=callback_query.message)
     elif callback_query.data == "subscribe_button":
-        await bot.answer_callback_query(callback_query.id, text="Вы нажали кнопку 2")
+        await subscribe_command(message=callback_query.message)
     elif callback_query.data == "help_button":
         await help_command(message=callback_query.message)
 
