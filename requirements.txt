@@ -5,3 +5,5 @@ aiogram
 requests
 
 peewee
+
+aioschedule
