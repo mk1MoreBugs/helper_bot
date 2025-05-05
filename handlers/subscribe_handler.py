@@ -12,6 +12,7 @@ from aiogram.fsm.state import State, StatesGroup
 
 from config import job_scheduler
 from handlers.commands_handler import send_quote_using_chat_id
+from handlers.weather_handler import send_weather_using_chat_id
 
 
 class SubscribeHandlerState(StatesGroup):
@@ -55,7 +56,8 @@ async def process_quote_subscribe_option(message: Message, state: FSMContext):
         'interval',
         minutes=1,
         args=(message_chat_id,),
-        id=f"{SubscribeOption.QUOTE.value}_{message_chat_id}"
+        id=f"{SubscribeOption.QUOTE.value}_{message_chat_id}",
+        replace_existing=True,
     )
     await message.answer("Вы подписаны на рассылку мотивирующих цитат")
 
@@ -85,7 +87,14 @@ async def process_unknown_subscribe_option(message: Message, state: FSMContext):
 async def process_select_weather_city(message: Message, state: FSMContext):
     message_chat_id = message.chat.id
 
-    # TODO: ipl add_job
+    job_scheduler.add_job(
+        send_weather_using_chat_id,
+        'interval',
+        minutes=1,
+        args=(message_chat_id,),
+        id=f"{SubscribeOption.WEATHER.value}_{message_chat_id}",
+        replace_existing=True,
+    )
 
     await message.answer("Вы подписаны на рассылку погоды")
     await state.clear()

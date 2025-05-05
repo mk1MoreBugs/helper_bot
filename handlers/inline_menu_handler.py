@@ -1,5 +1,6 @@
 from aiogram import Router
 from aiogram.filters import Command
+from aiogram.fsm.context import FSMContext
 from aiogram.types import (
     Message,
     InlineKeyboardButton,
@@ -7,9 +8,10 @@ from aiogram.types import (
     CallbackQuery,
 )
 
-from config import bot
+from config import bot, dp
 from handlers.commands_handler import quote_command, help_command
 from handlers.subscribe_handler import subscribe_command
+from handlers.weather_handler import weather_command
 
 router = Router()
 
@@ -33,9 +35,9 @@ async def inline_menu_command(message: Message):
 
 
 @router.callback_query()
-async def process_callback(callback_query: CallbackQuery):
+async def process_callback(callback_query: CallbackQuery, state: FSMContext):
     if callback_query.data == "weather_button":
-        await bot.answer_callback_query(callback_query.id, text="Ещё не реализовано")
+        await weather_command(message=callback_query.message, state=state)
     elif callback_query.data == "quote_button":
         await quote_command(message=callback_query.message)
     elif callback_query.data == "subscribe_button":
