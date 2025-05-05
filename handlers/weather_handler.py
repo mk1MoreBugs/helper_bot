@@ -47,7 +47,7 @@ async def send_weather_using_chat_id(chat_id: int, city_name: str):
             f"Скорость ветра: {weather_data['wind_speed']} м/c\n"
         )
         if weather_data["wind_gust"] is not None:
-            weather_message += f"Порывы ветра: {weather_data["wind_gust"]} м/c\n"
+            weather_message += f"Порывы ветра: {weather_data['wind_gust']} м/c\n"
 
         await bot.send_message(chat_id=chat_id, text=weather_message)
 
