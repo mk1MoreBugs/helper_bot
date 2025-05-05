@@ -1,8 +1,9 @@
-from aiogram import Bot, Dispatcher
+from aiogram import Bot
 
 from utils.configure_scheduler import configure_scheduler
-from utils.get_bot_token import get_bot_token
+from utils.parse_command_line_arguments import parse_command_line_arguments
 
-bot = Bot(token=get_bot_token())
-dp = Dispatcher()
+args = parse_command_line_arguments()
+
+bot = Bot(token=args.tg_bot_key)
 job_scheduler = configure_scheduler()
