@@ -4,6 +4,6 @@ aiogram
 
 requests
 
-peewee
+apscheduler
 
-aioschedule
+sqlalchemy

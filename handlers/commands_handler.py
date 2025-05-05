@@ -8,8 +8,7 @@ from aiogram.types import (
     CallbackQuery,
 )
 
-
-from dispatcher import dp, bot
+from dispatcher import dp, bot, job_scheduler
 from utils.generate_bot_help_message import generate_bot_help_message
 from utils.parse_city_arg import parse_city_arg
 
@@ -27,19 +26,26 @@ async def weather_command(message: Message):
 
 @dp.message(Command("quote"))
 async def quote_command(message: Message):
+    await send_quote_using_chat_id(chat_id=message.chat.id)
+
+
+@dp.message(Command("subscribe"))
+async def subscribe_command(message: Message):
+    add_job_args = (message.chat.id,)
+    job_scheduler.add_job(send_quote_using_chat_id, 'interval', seconds=10, args=add_job_args)
+
+    await message.answer("Вы подписаны")
+
+
+async def send_quote_using_chat_id(chat_id: int):
     quote_message = "Тестовая цитата"
-    await message.answer(quote_message)
+    await bot.send_message(chat_id=chat_id, text=quote_message)
 
 
 @dp.message(Command("help"))
 async def help_command(message: Message):
     help_message = await generate_bot_help_message()
     await message.answer(help_message)
-
-
-@dp.message(Command("subscribe"))
-async def subscribe_command(message: Message):
-    await message.answer("Еще не реализовано")
 
 
 @dp.message(Command('inline_menu'))
@@ -53,7 +59,6 @@ async def menu_handler(message: Message):
         ],
     ]
     keyboard = InlineKeyboardMarkup(inline_keyboard=keyboard_buttons)
-
 
     await message.answer(
         text='Список команд:',
@@ -71,4 +76,3 @@ async def process_callback(callback_query: CallbackQuery):
         await subscribe_command(message=callback_query.message)
     elif callback_query.data == "help_button":
         await help_command(message=callback_query.message)
-

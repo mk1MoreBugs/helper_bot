@@ -4,11 +4,12 @@ import sys
 
 from aiogram.types import BotCommand
 
-from dispatcher import bot, dp
+from dispatcher import bot, dp, job_scheduler
 import handlers.commands_handler  # handlers should be placed before run the main() function
 
 
 async def main() -> None:
+    job_scheduler.start()
 
     bot_commands = [
         BotCommand(command='start', description='Приветствие'),
