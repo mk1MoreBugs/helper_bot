@@ -17,17 +17,14 @@ class WeatherHandlerState(StatesGroup):
 router = Router()
 
 
-@router.message(Command(re.compile(r"^weather [а-яА-Яa-zA-Z]+\D+-*")))
-async def weather_command(message: Message):
-    city_in_message: str = parse_city_arg(message)
-    await message.answer("city:" + city_in_message)
-
-
-@router.message(Command("weather"))
+@router.message(Command("weather", re.compile(r"weather [а-яА-Яa-zA-Z]+\D+-*")))
 async def weather_command(message: Message, state: FSMContext):
-    await state.set_state(WeatherHandlerState.weather_city)
-
-    await message.answer("Введите город")
+    city_in_message: str = parse_city_arg(message)
+    if len(city_in_message) == 0:
+        await state.set_state(WeatherHandlerState.weather_city)
+        await message.answer("Введите город")
+    else:
+        await message.answer("city:" + city_in_message)
 
 
 @router.message(WeatherHandlerState.weather_city)

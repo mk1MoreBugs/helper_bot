@@ -11,7 +11,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 
 from config import job_scheduler
-from handlers.commands_handler import send_quote_using_chat_id
+from handlers.quote_handler import send_quote_using_chat_id
 from handlers.weather_handler import send_weather_using_chat_id
 
 

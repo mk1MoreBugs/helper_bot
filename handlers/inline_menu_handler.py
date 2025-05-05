@@ -8,8 +8,8 @@ from aiogram.types import (
     CallbackQuery,
 )
 
-from config import bot, dp
-from handlers.commands_handler import quote_command, help_command
+from handlers.help_handler import help_command
+from handlers.quote_handler import quote_command
 from handlers.subscribe_handler import subscribe_command
 from handlers.weather_handler import weather_command
 
@@ -38,9 +38,12 @@ async def inline_menu_command(message: Message):
 async def process_callback(callback_query: CallbackQuery, state: FSMContext):
     if callback_query.data == "weather_button":
         await weather_command(message=callback_query.message, state=state)
+
     elif callback_query.data == "quote_button":
         await quote_command(message=callback_query.message)
+
     elif callback_query.data == "subscribe_button":
         await subscribe_command(message=callback_query.message)
+
     elif callback_query.data == "help_button":
         await help_command(message=callback_query.message)

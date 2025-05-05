@@ -5,10 +5,12 @@ import sys
 from aiogram.types import BotCommand
 
 from config import bot, dp, job_scheduler
-import handlers.commands_handler  # handlers should be placed before run the main() function
 from handlers import subscribe_handler
 from handlers import inline_menu_handler
 from handlers import weather_handler
+from handlers import start_handler
+from handlers import help_handler
+from handlers import quote_handler
 
 
 async def main() -> None:
@@ -24,9 +26,12 @@ async def main() -> None:
     ]
     await bot.set_my_commands(bot_commands)
 
-    dp.include_router(subscribe_handler.router)
+    dp.include_router(start_handler.router)
+    dp.include_router(help_handler.router)
     dp.include_router(inline_menu_handler.router)
     dp.include_router(weather_handler.router)
+    dp.include_router(quote_handler.router)
+    dp.include_router(subscribe_handler.router)
 
     await dp.start_polling(bot)
 
