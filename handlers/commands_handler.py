@@ -15,7 +15,13 @@ from utils.parse_city_arg import parse_city_arg
 
 @dp.message(CommandStart())
 async def start_command(message: Message):
-    await message.answer(f"Привет, {message.from_user.first_name}! Я твой Telegram-бот! 🚀")
+    welcome_message = (
+        f"Привет, {message.from_user.first_name}!\n"
+        f"Бот позволяет получить прогноз погоды или вывести случайную мотивирующую цитату.\n\n"
+        f"Получить подробное описание комманд: /help\n"
+        f"Вывести inline-меню: /inline_menu"
+    )
+    await message.answer(welcome_message)
 
 
 @dp.message(Command("weather", re.compile(r"^weather [а-яА-Яa-zA-Z]+\D+-*")))
