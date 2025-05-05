@@ -54,7 +54,7 @@ async def process_quote_subscribe_option(message: Message, state: FSMContext):
     job_scheduler.add_job(
         send_quote_using_chat_id,
         'interval',
-        minutes=1,
+        days=1,
         args=(message_chat_id,),
         id=f"{SubscribeOption.QUOTE.value}_{message_chat_id}",
         replace_existing=True,
@@ -91,7 +91,7 @@ async def process_select_weather_city(message: Message, state: FSMContext):
     job_scheduler.add_job(
         send_weather_using_chat_id,
         'interval',
-        minutes=1,
+        days=1,
         args=(message_chat_id, city_name),
         id=f"{SubscribeOption.WEATHER.value}_{message_chat_id}",
         replace_existing=True,

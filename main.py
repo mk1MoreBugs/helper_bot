@@ -24,7 +24,7 @@ async def main() -> None:
         BotCommand(command='quote', description='Случайная мотивирующая цитата'),
         BotCommand(command='subscribe', description='Подписка на ежедневную погоду и цитату'),
         BotCommand(command='help', description='Список команд'),
-        BotCommand(command='inline_menu', description='Вызвать меню'),
+        BotCommand(command='inline_menu', description='Вызвать inline-меню'),
     ]
     await bot.set_my_commands(bot_commands)
 
