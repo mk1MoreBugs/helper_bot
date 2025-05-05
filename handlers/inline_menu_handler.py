@@ -37,13 +37,18 @@ async def inline_menu_command(message: Message):
 @router.callback_query()
 async def process_callback(callback_query: CallbackQuery, state: FSMContext):
     if callback_query.data == "weather_button":
-        await weather_command(message=callback_query.message, state=state)
+        callback_query_message = callback_query.message.model_copy(
+            update={
+                "text": "/weather"
+            }
+        )
+        await weather_command(message=callback_query_message, state=state)
 
     elif callback_query.data == "quote_button":
         await quote_command(message=callback_query.message)
 
     elif callback_query.data == "subscribe_button":
-        await subscribe_command(message=callback_query.message)
+        await subscribe_command(message=callback_query.message, state=state)
 
     elif callback_query.data == "help_button":
         await help_command(message=callback_query.message)
