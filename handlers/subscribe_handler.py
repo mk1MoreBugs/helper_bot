@@ -86,12 +86,13 @@ async def process_unknown_subscribe_option(message: Message, state: FSMContext):
 )
 async def process_select_weather_city(message: Message, state: FSMContext):
     message_chat_id = message.chat.id
+    city_name = message.text
 
     job_scheduler.add_job(
         send_weather_using_chat_id,
         'interval',
         minutes=1,
-        args=(message_chat_id,),
+        args=(message_chat_id, city_name),
         id=f"{SubscribeOption.WEATHER.value}_{message_chat_id}",
         replace_existing=True,
     )
