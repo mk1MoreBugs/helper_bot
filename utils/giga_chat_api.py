@@ -56,4 +56,5 @@ def get_bearer_token() -> str:
     )
     response_body = response.json()
 
-    return f"Bearer {response_body["access_token"]}"
+    access_token = response_body["access_token"]
+    return f"Bearer {access_token}"
