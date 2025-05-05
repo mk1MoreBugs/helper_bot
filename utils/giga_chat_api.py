@@ -7,14 +7,13 @@ from config import command_line_args
 
 
 def get_motivational_quote() -> str:
-    prompt = "Сгенерируй мотивирующую цитату. На 50-100 символов"
+    prompt = "Сгенерируй мотивирующую цитату. На 50-100 символов. Без кавычек"
     request_data = {
         "model": "GigaChat",
         "messages": [
             {
                 "role": "system",
                 "content": "Ты - преподаватель курса личностного роста"
-
             },
             {
                 "role": "user",
