@@ -4,7 +4,7 @@ import sys
 
 from aiogram.types import BotCommand
 
-from dispatcher import bot, dp, job_scheduler
+from config import bot, dp, job_scheduler
 import handlers.commands_handler  # handlers should be placed before run the main() function
 
 

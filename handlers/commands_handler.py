@@ -8,7 +8,7 @@ from aiogram.types import (
     CallbackQuery,
 )
 
-from dispatcher import dp, bot, job_scheduler
+from config import dp, bot, job_scheduler
 from utils.generate_bot_help_message import generate_bot_help_message
 from utils.parse_city_arg import parse_city_arg
 

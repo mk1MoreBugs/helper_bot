@@ -1,6 +1,6 @@
 from aiogram.types import BotCommand
 
-from dispatcher import bot
+from config import bot
 
 
 async def generate_bot_help_message() -> str:
