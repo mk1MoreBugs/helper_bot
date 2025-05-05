@@ -40,11 +40,11 @@ async def send_weather_using_chat_id(chat_id: int, city_name: str):
     try:
         weather_data = get_weather_from_city_name(city_name)
         weather_message = (
-            f"Текущая погода в {city_name}: {weather_data["weather"]} \n\n"
-            f"Температура: {weather_data["temp"]} ℃\n"
-            f"По ощущению: {weather_data["temp_feels_like"]} ℃\n"
-            f"Видимость: {weather_data["visibility"]} м\n"
-            f"Скорость ветра: {weather_data["wind_speed"]} м/c\n"
+            f"Текущая погода в {city_name}: {weather_data['weather']} \n\n"
+            f"Температура: {weather_data['temp']} ℃\n"
+            f"По ощущению: {weather_data['temp_feels_like']} ℃\n"
+            f"Видимость: {weather_data['visibility']} м\n"
+            f"Скорость ветра: {weather_data['wind_speed']} м/c\n"
         )
         if weather_data["wind_gust"] is not None:
             weather_message += f"Порывы ветра: {weather_data["wind_gust"]} м/c\n"
