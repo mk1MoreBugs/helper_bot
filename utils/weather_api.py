@@ -14,12 +14,12 @@ def get_weather_from_city_name(city_name: str) -> dict[str, Any]:
         "units": "metric",
         "lang": "ru",
     }
-    request = requests.get(
+    response = requests.get(
         url="https://api.openweathermap.org/data/2.5/weather",
         params=params,
     )
 
-    return process_weather_data(request_body=request.json())
+    return process_weather_data(response_body=response.json())
 
 
 def get_latitude_and_longitude_from_city_name(city_name: str) -> tuple[Any, Any]:
@@ -28,20 +28,20 @@ def get_latitude_and_longitude_from_city_name(city_name: str) -> tuple[Any, Any]
         "appid": command_line_args.weather_api_key,
         "limit": 1,
     }
-    request = requests.get(
+    response = requests.get(
         url="http://api.openweathermap.org/geo/1.0/direct",
         params=params,
     )
-    request_body = request.json()
-    return request_body[0]["lat"], request_body[0]["lon"]
+    response_body = response.json()
+    return response_body[0]["lat"], response_body[0]["lon"]
 
 
-def process_weather_data(request_body: dict[str, Any]) -> dict[str, Any]:
+def process_weather_data(response_body: dict[str, Any]) -> dict[str, Any]:
     return {
-        "weather": request_body["weather"][0]["description"],
-        "temp": request_body["main"]["temp"],
-        "temp_feels_like": request_body["main"]["feels_like"],
-        "visibility": request_body["visibility"],
-        "wind_speed": request_body["wind"]["speed"],
-        "wind_gust": request_body["wind"].get("gust"),
+        "weather": response_body["weather"][0]["description"],
+        "temp": response_body["main"]["temp"],
+        "temp_feels_like": response_body["main"]["feels_like"],
+        "visibility": response_body["visibility"],
+        "wind_speed": response_body["wind"]["speed"],
+        "wind_gust": response_body["wind"].get("gust"),
     }
