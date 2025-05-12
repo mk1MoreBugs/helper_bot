@@ -20,7 +20,7 @@ async def main() -> None:
 
     bot_commands = [
         BotCommand(command='start', description='Приветствие'),
-        BotCommand(command='weather', description='Текущая погода в городе'), #<город>
+        BotCommand(command='weather', description='Текущая погода в городе'),
         BotCommand(command='quote', description='Случайная мотивирующая цитата'),
         BotCommand(command='subscribe', description='Подписка на ежедневную погоду и цитату'),
         BotCommand(command='help', description='Список команд'),

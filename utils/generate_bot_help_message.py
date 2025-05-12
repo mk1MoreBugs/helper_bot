@@ -13,4 +13,10 @@ async def generate_bot_help_message() -> str:
 
     help_message = help_message.replace("/weather", "/weather Город")
 
+    help_message += (
+        "\n"
+        "Команда /weather использует OpenWeatherMap API https://openweathermap.org/api\n"
+        "Команда /quote использует GigaChat API https://developers.sber.ru/portal/products/gigachat-api"
+    )
+
     return help_message
